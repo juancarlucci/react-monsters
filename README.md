@@ -1,20 +1,47 @@
-## Monsters-rolodex-complete
+## React Monsters
 
-The completed version of our monsters rolodex project!
+### A React project based on an online class
 
-# How to fork and clone
+1)  Use class components:
+```class App extends Component```
 
-One quick note about cloning this project. If you wish to make commits and push the code up after cloning this repo, you should fork the project first. In order to own your own copy of this repository, you have to fork it so you get your own copy on your own profile!
+2) Component stucture and code organization
 
-You can see the fork button in the top right corner of every GitHub project; click it and a copy of the project will be added to your GitHub profile under the same name as the original project.
+3) Fetch data via:
 
-![alt text](https://i.ibb.co/1YN7SJ6/Screen-Shot-2019-07-01-at-2-02-40-AM.png "image to fork button")
+``` componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((users) => this.setState({ monsters: users }));
+  }```
 
-After forking the project, simply clone it the way you would from the new forked project in your own GitHub repository and you can commit and push to it freely!
+4) Update state with this.setState:
 
+```fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((users) => this.setState({ monsters: users }));```
 
-# After you fork and clone:
+```<SearchBox
+          placeholder="search monsters"
+          handleChange={(e) => this.setState({ searchField: e.target.value })}
+        />```
 
-## Install dependencies
+5) Filter results:
 
-In your terminal after you clone your project down, remember to run either `yarn` or `npm install` to build all the dependencies in the project.
+```const filteredMonsters = monsters.filter((monster) =>
+      monster.name.toLowerCase().includes(searchField.toLowerCase())
+    );```
+
+6) Use Fat arrows to "bind" "this":
+
+```onSearchChange = (event) => {
+    this.setState({ searchField: event.target.value });
+  };```
+
+7) Set image scr dynamically:
+
+```<img
+      alt='monster'
+      src={`https://robohash.org/${props.monster.id}?set=set2&size=180x180`}
+    />```
+    
